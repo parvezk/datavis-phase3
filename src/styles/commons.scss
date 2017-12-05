@@ -1,0 +1,10 @@
+
+@import 'themeColors';
+$theme-font:    verdana, sans-serif;
+
+body {
+  font: $theme-font;
+  h1, h2 {
+      color: $themeColor-Dark
+  }
+}

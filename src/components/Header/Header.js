@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import './styles.scss';
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +17,7 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        <div>Affirmative Header</div>
+        <div className="header">Affirmative Header</div>
         <nav>
           <ul>
             <li>

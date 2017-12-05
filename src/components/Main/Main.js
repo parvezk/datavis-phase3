@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import Landing from './../Landing/Landing';
 import List from './../Link/Link';
 
-import './app.css';
+import './styles.scss';
 
 class Main extends React.Component {
 
