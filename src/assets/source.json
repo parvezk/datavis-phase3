@@ -1,0 +1,133 @@
+{
+    "checked": false,
+    "persons": [
+      {
+        "name": "amanda",
+        "categories" : {
+          "mosul": {
+            "cardboard": {
+              "restorative": 108,
+              "fascination": 12,
+              "stimulation": 68,
+              "power": 34
+            }
+          }
+        }
+      },
+      {
+        "name": "dan",
+        "categories": {
+          "mosul": {
+            "cardboard": {
+              "restorative": 76,
+              "fascination": 155,
+              "stimulation": 49,
+              "power": 80
+            }
+          }
+        }
+      },
+      {
+        "name": "jason",
+        "categories": {
+          "mosul": {
+            "cardboard": {
+              "restorative": 105,
+              "fascination": 55,
+              "stimulation": 99,
+              "power": 84
+            }
+          }
+        }
+      },
+      {
+        "name": "kamila",
+        "categories": {
+          "mosul": {
+            "cardboard": {
+              "restorative": 31,
+              "fascination": 73,
+              "stimulation": 140,
+              "power": 5
+            }
+          }
+        }
+      },
+      {
+        "name": "kristin",
+        "categories": {
+          "mosul": {
+            "cardboard": {
+              "restorative": 217,
+              "fascination": 38,
+              "stimulation": 90,
+              "power": 128
+            }
+          }
+        }
+      },
+      {
+        "name": "michael",
+        "categories": {
+          "mosul": {
+            "cardboard": {
+              "restorative": 77,
+              "fascination": 51,
+              "stimulation": 70,
+              "power": 100
+            }
+          }
+        }
+      },
+      {
+        "name": "mike",
+        "categories": {
+          "mosul": {
+            "cardboard": {
+              "restorative": 75,
+              "fascination": 48,
+              "stimulation": 38,
+              "power": 53
+            }
+          }
+        }
+      },
+      {
+        "name": "nikita",
+        "categories": {
+          "mosul": {
+            "cardboard": {
+              "restorative": 81,
+              "fascination": 414,
+              "stimulation": 126,
+              "power": 228
+            }
+          }
+        }
+      },
+      {
+        "name": "rachel",
+        "categories": {
+          "mosul": {
+            "cardboard": {
+              "restorative": 36,
+              "fascination": 81,
+              "stimulation": 23,
+              "power": 102
+            },
+            "samsung": {
+              "restorative": 0,
+              "fascination": 0,
+              "stimulation": 0,
+              "power": 0
+            }
+          },
+          "elephant": {
+            
+          }
+        }
+      }
+    ],
+    "id": 1,
+    "comment": "A green door"
+  }
