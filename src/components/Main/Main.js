@@ -17,13 +17,14 @@ class Main extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="home">Main page</div>
+      <main className="main" >
+        <div className="title-area">
+        </div>
         <Switch>
           <Route exact path="/" component={Landing} />
           <Route path="/list" component={List} />
         </Switch>
-      </div>
+      </main>
 
   );
     

@@ -8,17 +8,13 @@ body {
   font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.4em;
   color: #4d4d4d;
-  min-width: 230px;
-  max-width: 550px;
-  margin: 0 auto;
+  margin: 0; 
+  width: 0;
+  width: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased;
   font-weight: 300;
-}
-
-td {
-	padding: 12px;
 }
 
 h2 {

@@ -17,7 +17,12 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        <div className="header">Affirmative Header</div>
+        <div className="header">
+        <div className="banner">
+          <h2>Measuring media immersion:</h2>
+          <h4>AP and Multimer study</h4>
+        </div>
+
         <nav>
           <ul>
             <li>
@@ -28,6 +33,8 @@ class Header extends React.Component {
             </li>
           </ul>
         </nav>
+        </div>
+        
       </div>
     );
   }

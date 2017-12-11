@@ -1,5 +1,53 @@
 @import "../../styles/commons.scss";
 
 .header {
-    background: $themeColor-Light;
+  //background: $themeColor-Light;
+  background: #000;
+  //height: 80px;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  .banner {
+      text-align: center;
+      margin: 0;
+      padding: 0px 0;
+      
+
+    h2 {
+        margin: 0;
+        padding: 10px 0 0px 0;
+        font-size: 22px;
+        -webkit-font-smoothing: antialiased;
+        font-weight: 400;
+    }
+    h4 {
+        text-transform: uppercase;
+        margin: 10px 0 10px 0px;
+        font-weight: 350;
+    }
+  }
+
+  nav {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      li {
+        display: inline-block;
+        margin: 5px 20px;
+        font-size: 13px;
+        text-transform: uppercase;
+        a {
+          text-decoration: none;
+        }
+      }
+    }
+  }
 }
