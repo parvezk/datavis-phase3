@@ -1,0 +1,16 @@
+.col3 {
+    width: 400px;
+    //background: rgb(243, 243, 243);
+    background: #202024 url(https://d1a3f4spazzrp4.cloudfront.net/web-fresh/pattern-grid-dark@1x.gif) repeat left top;
+    background-size: 18px 18px;
+
+    .inner {
+      padding: 20px;
+      color: #fff;
+        a {
+          text-decoration: none;
+          color: #fff;
+          font-weight: 400;
+        }
+    }
+  }
