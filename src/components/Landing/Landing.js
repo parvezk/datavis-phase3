@@ -1,35 +1,32 @@
 import React from "react";
 import ReactDom from "react-dom";
 import classnames from "classnames";
-import { string, object } from "prop-types";
-
 import * as d3 from "d3";
 import { event as currentEvent } from "d3";
 
+import RightCol from './../RightCol/RightCol';
+
 import "./styles.scss";
-import { setTimeout } from "timers";
 
 const force = d3.layout.force();
-let node;
-let nodes;
+let node, nodes, alpha;
 
 class Landing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       VIDEO: "mosul",
-      DEVICE: "samsung",
-      vr: false,
-      width: 600,
-      height: 540,
-      force: null
+      DEVICE: "cardboard",
+      currentSum: 137
     };
   }
 
-  componentWillMount() {}
+  componentWillMount() {    
+ 
+  }
 
   componentDidMount() {
-    const { VIDEO, DEVICE, width, height } = this.state;
+    const { width, height } = this.props;
     //const svg = this.__container;
 
     const svg = d3
@@ -41,60 +38,69 @@ class Landing extends React.Component {
     this.getPersons();
   }
 
-  componentDidUpdate() {
-    const { VIDEO, DEVICE } = this.state;
+  componentWillUpdate() {
+
+    const { width, height } = this.props;
     const self = this;
     const dataSource = "../../assets/source.json";
     let ds;
     let persons;
-    const fill = d3.scale.category10();
-    const svg = d3.select("svg");
 
-    console.log(this.state);
+    setTimeout(() => {
+      console.log(this.state);
+      const { VIDEO, DEVICE} = this.state;
 
-    d3.json(dataSource, function(error, source) {
-      if (error) {
-        console.log(error);
-      } else {
-        ds = source;
-
-        persons = ds.persons;
-
-        const dataset = self.getDataset(VIDEO, DEVICE, persons);
-        const countset = self.getCountset(persons);
-
-        let n = 0;
-        Object.values(countset).forEach(e => (n += e));
-        //console.log(n);
-
-        nodes = d3.range(n).map(function(i) {
-          let obj = {};
-          let input = dataset[i];
-          const sentiment = Object.keys(input)[0];
-
-          for (let [key, value] of Object.entries(input)) {
-            obj[key] = value;
-            obj.sentiment = sentiment;
-          }
-          obj.index = i;
-          return obj;
-        });
-
-        //console.log(nodes)
-        //nodes.splice((0), nodes.length -1);
+      d3.json(dataSource, function(error, source) {
+        if (error) {
+          console.log(error);
+        } else {
+          ds = source;
+  
+          persons = ds.persons;
           
-        node = svg.selectAll(".node")
-        .data(nodes)
-        node.exit().remove();
-
-        force
-        .nodes(nodes)
-        //.on("tick", self.tick)
-        .start();
-        
-        setTimeout(() => {
-          //let node = svg.selectAll("circle").data(nodes).enter();
-
+          const dataset = self.getDataset(VIDEO, DEVICE, persons);
+          const aggregates = self.getCountset(persons);
+  
+          let n = 0;
+          Object.values(aggregates).forEach(e => (n += e));
+  
+          /** DATA CHECK */
+          //console.log(aggregates);
+          //console.log(n);
+          //console.log(dataset)
+  
+          node = d3.select("svg").selectAll(".node").data(nodes);
+          node.exit().remove();
+          d3.select("svg").remove(); 
+  
+          nodes = d3.range(n).map(function(i) {
+            let obj = {};
+            
+            let input = dataset[i];
+            let sentiment = Object.keys(input);
+            if (sentiment) {
+              sentiment = sentiment[0];
+            }
+            for (let [key, value] of Object.entries(input)) {
+              obj[key] = value;
+              obj.sentiment = sentiment;
+            }
+            obj.index = i;
+            return obj;
+          });
+  
+          const svg = d3
+          .select(".container")
+          .append("svg")
+          .attr("width", width)
+          .attr("height", height);
+  
+          force
+          .nodes(nodes)
+          .size([width, height])
+          .on("tick", self.tick)
+          .start();
+  
           node = d3
           .select("svg")
           .selectAll(".node")
@@ -113,18 +119,41 @@ class Landing extends React.Component {
           .style("fill", function(d) {
             //return fill(i & 3); //random based on color scale above
             return d.sentiment == "restorative"
-              ? "#d62728"
+              ? "#ff7f0e"
               : d.sentiment == "fascination"
                 ? "#2ca02c"
-                : d.sentiment == "stimulation" ? "#1f77b4" : "#ff7f0e";
+                : d.sentiment == "stimulation" ? "#1f77b4" : "#d62728";
+          })
+          .attr("data-value", (d) => {
+            //console.log(d);
+            return d.sentiment;
           })
           .call(force.drag)
-          
-          
-        }, 2000);
+          .on("mousedown", function() {
+            currentEvent.stopPropagation();
+          });
+  
+          d3
+          .select("svg")
+          .style("opacity", 1e-6)
+          .transition()
+          .duration(1000)
+          .style("opacity", 1);
+    
+        d3.select(".container svg").on("mousedown", self.mousedown);
+    
+        //self.setState({ currentSum: n });  
+        }
+      });
+    }, 200 );
+    
 
-      }
-    });
+    
+
+  }
+
+  componentDidUpdate() {
+   
   }
 
   componentWillUnmount() {
@@ -205,24 +234,19 @@ class Landing extends React.Component {
         dataset.push(item);
       }
     }
-
-    /***************/
-
-    /*************** */
-
     return dataset;
   }
 
   getCountset(persons) {
     // Initialize Dataset
-    let countset = {};
+    let aggregates = {};
     const { VIDEO, DEVICE } = this.state;
 
     const list = Object.values(persons[0].categories)[0];
     const listItems = Object.values(list)[0];
     Object.keys(listItems).forEach(e => {
       if (e !== "name") {
-        countset[e] = 0;
+        aggregates[e] = 0;
       }
     });
 
@@ -234,53 +258,59 @@ class Landing extends React.Component {
 
         switch (key) {
           case "restorative": {
-            countset.restorative += value;
+            aggregates.restorative += value;
 
             break;
           }
 
           case "fascination": {
-            countset.fascination += value;
+            aggregates.fascination += value;
             break;
           }
 
           case "stimulation": {
-            countset.stimulation += value;
+            aggregates.stimulation += value;
             break;
           }
 
           case "power": {
-            countset.power += value;
+            aggregates.power += value;
             break;
           }
         }
       }
     });
 
-    return countset;
-    //return countset;
+    return aggregates;
+    //return aggregates;
   }
 
   forceLayout(persons) {
-    
-    const { VIDEO, DEVICE, width, height } = this.state;
+    const { VIDEO, DEVICE } = this.state;
+    const { width, height } = this.props;
     const dataset = this.getDataset(VIDEO, DEVICE, persons);
-    const countset = this.getCountset(persons);
+    const aggregates = this.getCountset(persons);
 
     let n = 0;
-    Object.values(countset).forEach(e => (n += e));
-    console.log(n);
+    Object.values(aggregates).forEach(e => (n += e));
+
+    /** CHECK DATA **/
+    //console.log(n);
+    //console.log(aggregates);
 
     //get colors
     const fill = d3.scale.category10();
 
-    //build a map of 100 nodes
+    //build a map of N nodes
     // combine nodes and CUMULATIVE
     nodes = d3.range(n).map(function(i) {
       let obj = {};
       let input = dataset[i];
-      const sentiment = Object.keys(input)[0];
-
+      let sentiment = Object.keys(input);
+      if (sentiment) {
+        sentiment = sentiment[0];
+      }
+      
       for (let [key, value] of Object.entries(input)) {
         obj[key] = value;
         obj.sentiment = sentiment;
@@ -288,7 +318,6 @@ class Landing extends React.Component {
       obj.index = i;
       return obj;
     });
-    console.log(nodes);
 
     //build our layout
     force
@@ -316,13 +345,14 @@ class Landing extends React.Component {
       .style("fill", function(d) {
         //return fill(i & 3); //random based on color scale above
         return d.sentiment == "restorative"
-          ? "#d62728"
+          ? "#ff7f0e"
           : d.sentiment == "fascination"
             ? "#2ca02c"
-            : d.sentiment == "stimulation" ? "#1f77b4" : "#ff7f0e";
+            : d.sentiment == "stimulation" ? "#1f77b4" : "#d62728";
       })
-      .style("stroke", function(d, i) {
-        return d3.rgb(fill(i & 3)).darker(0);
+      .attr("data-value", (d) => {
+        //console.log(d);
+        return d.sentiment;
       })
       .call(force.drag)
       .on("mousedown", function() {
@@ -336,70 +366,61 @@ class Landing extends React.Component {
       .duration(1000)
       .style("opacity", 1);
 
-    const mousedown = () => {
-      nodes.forEach(function(o) {
-        o.x += (Math.random() - 0.5) * 40;
-        o.y += (Math.random() - 0.5) * 40;
-      });
-      force.resume();
-    };
-
-    d3.select(".container svg").on("mousedown", mousedown);
+    d3.select(".container svg").on("mousedown", this.mousedown);
   }
+
+  mousedown = () => {
+    nodes.forEach(function(o) {
+      o.x += (Math.random() - 0.5) * 40;
+      o.y += (Math.random() - 0.5) * 40;
+    });
+    force.resume();
+  };
 
   tick = e => {
     // Push different nodes in different directions for clustering.
-    const k = 6 * e.alpha;
+    let k = 6 * e.alpha;
+    alpha = e.alpha;
     nodes.forEach(function(o) {
       switch (o.sentiment) {
-        case "restorative": {
-          o.y += k;
-          o.x += k;
-          break;
+        case "power": { o.y += k; o.x += k; break; }
+        case "stimulation": { o.y += k; o.x += -k; break; }
+        case "fascination": { 
+          o.y += -k; 
+          o.x += k; 
+          break; 
         }
-
-        case "fascination": {
-          o.y += k;
-          o.x += -k;
-          break;
-        }
-
-        case "stimulation": {
-          o.y += -k;
-          o.x += k;
-          break;
-        }
-
-        case "power": {
-          o.y += -k;
-          o.x += -k;
-          break;
-        }
+        case "restorative": { o.y += -k; o.x += -k; break;}
       }
       //o.y += i & 1 ? k : -k;
       //o.x += i & 2 ? k : -k;
     });
 
     node
-      .attr("cx", function(d) {
-        return d.x;
-      })
-      .attr("cy", function(d) {
-        return d.y;
-      });
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; });
   };
 
-  _onHandleClick = e => {
-
-    const device = e.target.attributes.getNamedItem('data-device').value;
-    const video = e.target.attributes.getNamedItem('data-video').value;
-
+  _onVideoUpdate = (video) => {
+    //const device = e.target.attributes.getNamedItem("data-device").value;
     this.setState({
-      VIDEO: video,
-      DEVICE: device,
-      vr: true
+      VIDEO: video
     });
+
   };
+
+  _onDeviceUpdate = (device) => {
+    this.setState({
+      DEVICE: device
+    });
+    
+  };
+
+  reload() {}
+
+  fillColors() {}
+
+  _groupNodes() {}
 
   render() {
     return (
@@ -411,19 +432,35 @@ class Landing extends React.Component {
               <ul>
                 <li>
                   <h4>Open-Mindedness</h4>
-                  <p>Associated with an individual being attracted to a topic, but not alarmed. A participant exhibits less than 44 percent of the overall range of attention.</p>
+                  <p>
+                    Associated with an individual being attracted to a topic,
+                    but not alarmed. A participant exhibits less than 44 percent
+                    of the overall range of attention.
+                  </p>
                 </li>
                 <li>
                   <h4>Fascination</h4>
-                  <p>Associated with a relaxed interest in a topic. Aparticipant exhibits less than 57 percent of the overall range of attention</p>
+                  <p>
+                    Associated with a relaxed interest in a topic. Aparticipant
+                    exhibits less than 57 percent of the overall range of
+                    attention
+                  </p>
                 </li>
                 <li>
                   <h4>Stimulation</h4>
-                  <p>Associated with an individual being more attentive than they are relaxed. Aparticipant exhibits greater than 50 percent of the overall range of attention.</p>
+                  <p>
+                    Associated with an individual being more attentive than they
+                    are relaxed. Aparticipant exhibits greater than 50 percent
+                    of the overall range of attention.
+                  </p>
                 </li>
                 <li>
                   <h4>Power Intensity</h4>
-                  <p>Associated with the lasting impact of the experience. A participant exhibits greater than 44 percent of the overall range of attention.</p>
+                  <p>
+                    Associated with the lasting impact of the experience. A
+                    participant exhibits greater than 44 percent of the overall
+                    range of attention.
+                  </p>
                 </li>
               </ul>
             </div>
@@ -433,13 +470,12 @@ class Landing extends React.Component {
           <div className="container" />
         </section>
         <section className="col3">
-        <a href="#" onClick={this._onHandleClick} data-device="cardboard" data-video="mosul">
-          Mosul Cardboard
-        </a>
-        <br />
-        <a href="#" onClick={this._onHandleClick} data-device="samsung" data-video="mosul">
-          Mosul Samsung
-        </a>
+          <RightCol
+            video={this.state.VIDEO}
+            device={this.state.DEVICE}
+            onVideoSelect={this._onVideoUpdate}
+            onDeviceSelect={this._onDeviceUpdate}
+          />
         </section>
       </div>
     );
@@ -447,7 +483,8 @@ class Landing extends React.Component {
 }
 
 Landing.defaultProps = {
-  header: "<header>Base Page</header>"
+  width: 600,
+  height: 540
 };
 
 export default Landing;
