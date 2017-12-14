@@ -2,8 +2,8 @@
   "checked": false,
   "persons": [
     {
-      "name": "amanda",
-      "categories" : {
+      "name": "Amanda",
+      "categories": {
         "mosul": {
           "cardboard": {
             "restorative": 108,
@@ -17,11 +17,39 @@
             "stimulation": 83,
             "power": 23
           }
+        },
+        "new_orleans": {
+          "cardboard": {
+            "restorative": 45,
+            "fascination": 117,
+            "stimulation": 48,
+            "power": 128
+          },
+          "samsung": {
+            "restorative": 1,
+            "fascination": 8,
+            "stimulation": 20,
+            "power": 12
+          }
+        },
+        "elephant": {
+          "cardboard": {
+            "restorative": 47,
+            "fascination": 62,
+            "stimulation": 11,
+            "power": 11
+          },
+          "samsung": {
+            "restorative": 1,
+            "fascination": 1,
+            "stimulation": 1,
+            "power": 1
+          }
         }
       }
     },
     {
-      "name": "dan",
+      "name": "Dan",
       "categories": {
         "mosul": {
           "cardboard": {
@@ -36,11 +64,39 @@
             "stimulation": 56,
             "power": 60
           }
+        },
+        "new_orleans": {
+          "cardboard": {
+            "restorative": 100,
+            "fascination": 73,
+            "stimulation": 58,
+            "power": 160
+          },
+          "samsung": {
+            "restorative": 108,
+            "fascination": 660,
+            "stimulation": 12,
+            "power": 174
+          }
+        },
+        "elephant": {
+          "cardboard": {
+            "restorative": 77,
+            "fascination": 18,
+            "stimulation": 12,
+            "power": 9
+          },
+          "samsung": {
+            "restorative": 35,
+            "fascination": 51,
+            "stimulation": 34,
+            "power": 41
+          }
         }
       }
     },
     {
-      "name": "jason",
+      "name": "Jason",
       "categories": {
         "mosul": {
           "cardboard": {
@@ -55,11 +111,39 @@
             "stimulation": 99,
             "power": 30
           }
+        },
+        "new_orleans": {
+          "cardboard": {
+            "restorative": 54,
+            "fascination": 55,
+            "stimulation": 91,
+            "power": 150
+          },
+          "samsung": {
+            "restorative": 134,
+            "fascination": 156,
+            "stimulation": 43,
+            "power": 44
+          }
+        },
+        "elephant": {
+          "cardboard": {
+            "restorative": 64,
+            "fascination": 58,
+            "stimulation": 6,
+            "power": 1
+          },
+          "samsung": {
+            "restorative": 11,
+            "fascination": 47,
+            "stimulation": 1,
+            "power": 3
+          }
         }
       }
     },
     {
-      "name": "kamila",
+      "name": "Kamila",
       "categories": {
         "mosul": {
           "cardboard": {
@@ -74,11 +158,39 @@
             "stimulation": 241,
             "power": 39
           }
+        },
+        "new_orleans": {
+          "cardboard": {
+            "restorative": 46,
+            "fascination": 81,
+            "stimulation": 71,
+            "power": 190
+          },
+          "samsung": {
+            "restorative": 51,
+            "fascination": 119,
+            "stimulation": 48,
+            "power": 113
+          }
+        },
+        "elephant": {
+          "cardboard": {
+            "restorative": 1,
+            "fascination": 1,
+            "stimulation": 1,
+            "power": 1
+          },
+          "samsung": {
+            "restorative": 1,
+            "fascination": 1,
+            "stimulation": 1,
+            "power": 1
+          }
         }
       }
     },
     {
-      "name": "kristin",
+      "name": "Kristin",
       "categories": {
         "mosul": {
           "cardboard": {
@@ -93,11 +205,39 @@
             "stimulation": 82,
             "power": 11
           }
+        },
+        "new_orleans": {
+          "cardboard": {
+            "restorative": 59,
+            "fascination": 68,
+            "stimulation": 56,
+            "power": 132
+          },
+          "samsung": {
+            "restorative": 25,
+            "fascination": 64,
+            "stimulation": 59,
+            "power": 197
+          }
+        },
+        "elephant": {
+          "cardboard": {
+            "restorative": 37,
+            "fascination": 31,
+            "stimulation": 14,
+            "power": 40
+          },
+          "samsung": {
+            "restorative": 6,
+            "fascination": 28,
+            "stimulation": 11,
+            "power": 85
+          }
         }
       }
     },
     {
-      "name": "michael",
+      "name": "Michael",
       "categories": {
         "mosul": {
           "cardboard": {
@@ -112,11 +252,39 @@
             "stimulation": 107,
             "power": 113
           }
+        },
+        "new_orleans": {
+          "cardboard": {
+            "restorative": 31,
+            "fascination": 140,
+            "stimulation": 23,
+            "power": 112
+          },
+          "samsung": {
+            "restorative": 24,
+            "fascination": 99,
+            "stimulation": 27,
+            "power": 158
+          }
+        },
+        "elephant": {
+          "cardboard": {
+            "restorative": 25,
+            "fascination": 85,
+            "stimulation": 2,
+            "power": 12
+          },
+          "samsung": {
+            "restorative": 9,
+            "fascination": 40,
+            "stimulation": 8,
+            "power": 56
+          }
         }
       }
     },
     {
-      "name": "mike",
+      "name": "Mike",
       "categories": {
         "mosul": {
           "cardboard": {
@@ -131,11 +299,39 @@
             "stimulation": 0,
             "power": 0
           }
+        },
+        "new_orleans": {
+          "cardboard": {
+            "restorative": 105,
+            "fascination": 57,
+            "stimulation": 38,
+            "power": 77
+          },
+          "samsung": {
+            "restorative": 55,
+            "fascination": 86,
+            "stimulation": 49,
+            "power": 121
+          }
+        },
+        "elephant": {
+          "cardboard": {
+            "restorative": 2,
+            "fascination": 7,
+            "stimulation": 15,
+            "power": 101
+          },
+          "samsung": {
+            "restorative": 65,
+            "fascination": 29,
+            "stimulation": 12,
+            "power": 7
+          }
         }
       }
     },
     {
-      "name": "nikita",
+      "name": "Nikita",
       "categories": {
         "mosul": {
           "cardboard": {
@@ -150,11 +346,39 @@
             "stimulation": 339,
             "power": 39
           }
+        },
+        "new_orleans": {
+          "cardboard": {
+            "restorative": 141,
+            "fascination": 594,
+            "stimulation": 15,
+            "power": 165
+          },
+          "samsung": {
+            "restorative": 1,
+            "fascination": 1,
+            "stimulation": 1,
+            "power": 1
+          }
+        },
+        "elephant": {
+          "cardboard": {
+            "restorative": 63,
+            "fascination": 162,
+            "stimulation": 21,
+            "power": 102
+          },
+          "samsung": {
+            "restorative": 93,
+            "fascination": 105,
+            "stimulation": 15,
+            "power": 129
+          }
         }
       }
     },
     {
-      "name": "rachel",
+      "name": "Rachel",
       "categories": {
         "mosul": {
           "cardboard": {
@@ -170,7 +394,74 @@
             "power": 71
           }
         },
+        "new_orleans": {
+          "cardboard": {
+            "restorative": 1,
+            "fascination": 1,
+            "stimulation": 1,
+            "power": 1
+          },
+          "samsung": {
+            "restorative": 1,
+            "fascination": 1,
+            "stimulation": 1,
+            "power": 1
+          }
+        },
         "elephant": {
+          "cardboard": {
+            "restorative": 16,
+            "fascination": 69,
+            "stimulation": 10,
+            "power": 52
+          },
+          "samsung": {
+            "restorative": 50,
+            "fascination": 57,
+            "stimulation": 16,
+            "power": 46
+          }
+        }
+      }
+    },
+    {
+      "name": "Arsen",
+      "categories": {
+        "mosul": {
+          "cardboard": {
+            "restorative": 1,
+            "fascination": 1,
+            "stimulation": 1,
+            "power": 1
+          },
+          "samsung": {
+            "restorative": 1,
+            "fascination": 1,
+            "stimulation": 1,
+            "power": 1
+          }
+        },
+        "new_orleans": {
+          "cardboard": {
+            "restorative": 1,
+            "fascination": 1,
+            "stimulation": 1,
+            "power": 1
+          },
+          "samsung": {
+            "restorative": 1,
+            "fascination": 1,
+            "stimulation": 1,
+            "power": 1
+          }
+        },
+        "elephant": {
+          "cardboard": {
+            "restorative": 1,
+            "fascination": 1,
+            "stimulation": 1,
+            "power": 1
+          },
           "samsung": {
             "restorative": 1,
             "fascination": 1,
@@ -179,21 +470,7 @@
           }
         }
       }
-    },
-    {
-      "name": "arsen",
-      "categories": {
-        "mosul": {
-          "cardboard": {
-            "restorative": 0,
-            "fascination": 0,
-            "stimulation": 0,
-            "power": 0
-          }
-        }
-      }
     }
   ],
-  "id": 1,
   "comment": "A green door"
 }

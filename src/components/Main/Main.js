@@ -18,8 +18,7 @@ class Main extends React.Component {
   render() {
     return (
       <main className="main" >
-        <div className="title-area">
-        </div>
+        
         <Switch>
           <Route exact path="/" component={Landing} />
           <Route path="/list" component={List} />

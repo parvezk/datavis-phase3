@@ -1,0 +1,22 @@
+.research_paper {
+    margin: 30px ;
+    width: 600px;
+
+    blockquote {
+        h3 {
+            margin: 10px 0;
+            a {
+                color: darkcyan
+            }
+        }
+        cite {
+            margin: 10px 0;
+            display: inline-block;
+            
+            a {
+                font-style: normal;
+                color: dimgray;
+            }
+        }
+    }
+}

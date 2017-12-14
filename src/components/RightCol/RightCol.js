@@ -29,25 +29,39 @@ class RightCol extends React.Component {
   }
 
   handleChange(event) {
+    const videoSelected = event.target.value;
     this.setState({
       video: event.target.value
     });
+    if (this.props.onVideoSelect) {
+      this.props.onVideoSelect(videoSelected.toLowerCase());
+    }
+
+
   }
 
   handleDeviceChange = event => {
     //event.preventDefault();
     const deviceSelected = event.target.value;
-
-    this.setState({ device: deviceSelected });
-
+    this.setState({ 
+      device: deviceSelected
+    });
     if (this.props.onDeviceSelect) {
       this.props.onDeviceSelect(deviceSelected.toLowerCase());
     }
   };
 
   _UpdateGroup = () => {
+    
     if (this.props.onUpdateGroup) {
       this.props.onUpdateGroup();
+    }
+  };
+
+  _UpdateScatter = () => {
+    console.log('KPPP')
+    if (this.props.onUpdateScatter) {
+      this.props.onUpdateScatter();
     }
   };
 
@@ -56,14 +70,14 @@ class RightCol extends React.Component {
 
     return (
       <div className="inner">
-        <h4>Select Video and Device</h4>
+        <h4>360 Videos and VR Devices</h4>
         <div>
           <hr />
         </div>
         <form>
           <div className="dd-bloc">
             <label>
-              <h5>Choose Video: </h5>
+              <h5>Choose 360 Video: </h5>
 
               <div className="custom-dropdown custom-dropdown--white">
                 <select
@@ -93,9 +107,10 @@ class RightCol extends React.Component {
                       onChange={this.handleDeviceChange}
                       className="custom-dropdown__select custom-dropdown__select--white"
                     >
-                      {formControls.map(key => (
-                        <option value={key}>{key}</option>
-                      ))}
+                      
+                        <option value={formControls[0]}>{formControls[0]}</option>
+                        <option value={formControls[1]}>{formControls[1]}</option>
+                      
                     </select>
                   </div>
                 )}
@@ -106,16 +121,12 @@ class RightCol extends React.Component {
         <div>
           <hr />
         </div>
-        <p>
-          <a href="#" onClick={this._UpdateGroup}>
-            Group Nodes
-          </a>
-        </p>
-        <p>
-          <a href="#" onClick={this._UpdateGroup}>
-            Scatter All
-          </a>
-        </p>
+
+        <div className="btnGroups">
+            <button type="button" onClick={this._UpdateGroup}> Group All</button>
+            <button type="button" onClick={this._UpdateScatter}>Scatter All</button>
+        </div>
+
       </div>
     );
   }

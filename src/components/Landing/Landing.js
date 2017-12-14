@@ -3,13 +3,16 @@ import ReactDom from "react-dom";
 import classnames from "classnames";
 import * as d3 from "d3";
 import { event as currentEvent } from "d3";
+import d3Tip from "d3-tip";
+
+d3.tip = d3Tip;
 
 import RightCol from './../RightCol/RightCol';
 
 import "./styles.scss";
 
 const force = d3.layout.force();
-let node, nodes;
+let node, nodes, personData;
 
 class Landing extends React.Component {
   constructor(props) {
@@ -21,6 +24,7 @@ class Landing extends React.Component {
     };
 
     this._onUpdateGroupNode = this._onUpdateGroupNode.bind(this);
+    this._onUpdateScatterNode = this._onUpdateScatterNode.bind(this);
   }
 
   componentWillMount() {    
@@ -41,15 +45,18 @@ class Landing extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState){
-    if (nextState.DEVICE === this.state.DEVICE ) {
+    return true;
+    /*
+    if (nextState.DEVICE === this.state.DEVICE && nextState.VIDEO === this.state.VIDEO ) {
       return false;
     } else {
       return true;
     }
+    */
   }
 
   componentWillUpdate() {
-    console.log('componentWillUpdate')
+    console.log('componentWillUpdate');
     const { width, height } = this.props;
     const self = this;
     const dataSource = "../../assets/source.json";
@@ -67,7 +74,7 @@ class Landing extends React.Component {
         } else {
           ds = source;
   
-          persons = ds.persons;
+          personData = persons = ds.persons;
           
           const dataset = self.getDataset(VIDEO, DEVICE, persons);
           const aggregates = self.getCountset(persons);
@@ -77,8 +84,8 @@ class Landing extends React.Component {
   
           /** DATA CHECK */
           //console.log(aggregates);
-          //console.log(n);
-          //console.log(dataset)
+          console.log(n);
+          console.log(dataset);
       
           node = svg.selectAll(".node").data(nodes);
           node.exit().remove();
@@ -136,7 +143,6 @@ class Landing extends React.Component {
                 : d.sentiment == "stimulation" ? "#1f77b4" : "#d62728";
           })
           .attr("data-value", (d) => {
-            //console.log(d);
             return d.sentiment;
           })
           .call(force.drag)
@@ -153,8 +159,13 @@ class Landing extends React.Component {
     
         d3.select(".container svg").on("mousedown", self.mousedown);
         }
+        self.addLabels();
       });
+      
+
     }, 200 );
+
+    
   }
 
   componentDidUpdate() {
@@ -163,6 +174,48 @@ class Landing extends React.Component {
 
   componentWillUnmount() {
     d3.select("svg").remove();
+  }
+
+  addLabels() {
+    
+    const aggregates = this.getCountset(personData);
+    console.log(aggregates);
+
+    const svg = d3.select('svg');
+    // Add labels
+    svg.append("text")
+    .attr("x", 20)
+    .attr("y", 20)
+    .attr("dy", ".35em")
+    .text(function(d) { return "OPEN-MINDEDNESS: " + aggregates.restorative; })
+
+    svg.append("text")
+    .attr("x", 460)
+    .attr("y", 20)
+    .attr("dy", ".35em")
+    .text(function(d) { return "FASCINATION: " + aggregates.fascination; });
+    
+    svg.append("text")
+    .attr("x", 20)
+    .attr("y", 530)
+    .attr("dy", ".35em")
+    .text(function(d) { return "STIMULATION: " + aggregates.stimulation; });
+
+    svg.append("text")
+    .attr("x", 510)
+    .attr("y", 530)
+    .attr("dy", ".35em")
+    .text(function(d) { return "POWER: " + aggregates.power; });
+
+    /*svg.append('div')
+		.attr('class', function (d) { "sds"; })
+		.style('position','absolute')
+		.style('top', function (d) { return 50})
+		.style('left', function (d) { return 50 })
+		.style('width', 100 + "px")
+		.style('height', 100 + "px")
+		.style('background-color', function (d) { return "yellow"; })*/
+
   }
 
   getPersons() {
@@ -177,10 +230,11 @@ class Landing extends React.Component {
       } else {
         ds = source;
 
-        persons = ds.persons;
+        personData = persons = ds.persons;
         totalUsers = Object.keys(persons).length;
 
         self.forceLayout(persons);
+        self.addLabels();
       }
     });
   }
@@ -234,7 +288,6 @@ class Landing extends React.Component {
     for (let item of Object.values(_CUMULATIVE)) {
       const sentiment = Object.keys(item)[0];
       let m = item[sentiment];
-      //console.log(sentiment, item[sentiment])
       for (let i = 0; i < m; i++) {
         dataset.push(item);
       }
@@ -291,11 +344,23 @@ class Landing extends React.Component {
   }
 
   forceLayout(persons) {
+    
     const { VIDEO, DEVICE } = this.state;
     const { width, height } = this.props;
+    const svg = d3.select("svg");
+    
+    //Set up tooltip
+    const tip = d3.tip()
+    .attr('class', 'd3-tip')
+    .offset([-3, 0])
+    .html(function (d) {
+      return  " " + d.name + " ";
+    });
+    
+    svg.call(tip);
+
     const dataset = this.getDataset(VIDEO, DEVICE, persons);
     const aggregates = this.getCountset(persons);
-
     let n = 0;
     Object.values(aggregates).forEach(e => (n += e));
 
@@ -304,10 +369,10 @@ class Landing extends React.Component {
     //console.log(aggregates);
 
     //get colors
-    const fill = d3.scale.category10();
+    //const fill = d3.scale.category10();
 
-    //build a map of N nodes
-    // combine nodes and CUMULATIVE
+    //Build a map of N nodes
+    //Combine Dataset of NODES and CUMULATIVE
     nodes = d3.range(n).map(function(i) {
       let obj = {};
       let input = dataset[i];
@@ -324,21 +389,19 @@ class Landing extends React.Component {
       return obj;
     });
 
-    //build our layout
+    //Build layout
     force
       .nodes(nodes)
       .size([width, height])
       .on("tick", this.tick)
       .start();
 
-    //add the nodes
-    node = d3
-      .select("svg")
+    //Add the nodes
+    node = svg
       .selectAll(".node")
       .data(nodes)
       .enter()
       .append("circle")
-      .attr("style", "cursor: pointer")
       .attr("class", "node")
       .attr("cx", function(d) {
         return d.x;
@@ -346,7 +409,7 @@ class Landing extends React.Component {
       .attr("cy", function(d) {
         return d.y;
       }) //relative position
-      .attr("r", 8) //radius = size of circle
+      .attr("r", 8)
       .style("fill", function(d) {
         //return fill(i & 3); //random based on color scale above
         return d.sentiment == "restorative"
@@ -356,13 +419,22 @@ class Landing extends React.Component {
             : d.sentiment == "stimulation" ? "#1f77b4" : "#d62728";
       })
       .attr("data-value", (d) => {
-        //console.log(d);
         return d.sentiment;
       })
       .call(force.drag)
       .on("mousedown", function() {
         currentEvent.stopPropagation();
-      });
+      })
+      .on('mouseover', function(d) {
+        tip.show(d, this);
+        currentEvent.stopPropagation();
+        currentEvent.preventDefault();
+      }) //Added
+      .on('mouseout', function(d) {
+        tip.hide(d, this);
+        currentEvent.stopPropagation();
+        currentEvent.preventDefault();
+      }); //Removed 
 
     d3
       .select("svg")
@@ -372,6 +444,7 @@ class Landing extends React.Component {
       .style("opacity", 1);
 
     d3.select(".container svg").on("mousedown", this.mousedown);
+      
   }
 
   mousedown = () => {
@@ -382,7 +455,7 @@ class Landing extends React.Component {
     force.resume();
   };
 
-  tick = e => {
+  tick = (e) => {
     // Push different nodes in different directions for clustering.
     let k = 6 * e.alpha;
 
@@ -406,13 +479,13 @@ class Landing extends React.Component {
       .attr("cy", function(d) { return d.y; });
   };
 
-  ticked = e => {
+  ticked = (e) => {
     node
       .attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; });
   };
 
-  _onUpdateGroupNode(e) {
+  _onUpdateGroupNode() {
     
     force
     .on("tick", this.ticked)
@@ -423,19 +496,27 @@ class Landing extends React.Component {
     .attr("cy", function(d) { return d.y = d.y - 0.1; });*/
   }
 
+  _onUpdateScatterNode() {
+
+    console.log('here here')
+    force
+    .on("tick", this.tick)
+    .start();
+  }
+
   _onVideoUpdate = (video) => {
-    //const device = e.target.attributes.getNamedItem("data-device").value;
+    console.log(video);
+    //const device = e.target.attributes
+    //.getNamedItem("data-device").value;
     this.setState({
       VIDEO: video
     });
-
   };
 
   _onDeviceUpdate = (device) => {
     this.setState({
       DEVICE: device
     });
-    
   };
 
   reload() {}
@@ -451,7 +532,7 @@ class Landing extends React.Component {
             <div>
               <ul>
                 <li>
-                  <h4>Open-Mindedness</h4>
+                  <h4><span className="restorative">&nbsp;</span>Open-Mindedness</h4>
                   <p>
                     Associated with an individual being attracted to a topic,
                     but not alarmed. A participant exhibits less than 44 percent
@@ -459,7 +540,7 @@ class Landing extends React.Component {
                   </p>
                 </li>
                 <li>
-                  <h4>Fascination</h4>
+                  <h4><span className="fascination">&nbsp;</span>Fascination</h4>
                   <p>
                     Associated with a relaxed interest in a topic. Aparticipant
                     exhibits less than 57 percent of the overall range of
@@ -467,7 +548,7 @@ class Landing extends React.Component {
                   </p>
                 </li>
                 <li>
-                  <h4>Stimulation</h4>
+                  <h4><span className="stimulation">&nbsp;</span>Stimulation</h4>
                   <p>
                     Associated with an individual being more attentive than they
                     are relaxed. Aparticipant exhibits greater than 50 percent
@@ -475,7 +556,7 @@ class Landing extends React.Component {
                   </p>
                 </li>
                 <li>
-                  <h4>Power Intensity</h4>
+                  <h4><span className="power">&nbsp;</span>Power / Intensity</h4>
                   <p>
                     Associated with the lasting impact of the experience. A
                     participant exhibits greater than 44 percent of the overall
@@ -498,6 +579,7 @@ class Landing extends React.Component {
             onVideoSelect={this._onVideoUpdate}
             onDeviceSelect={this._onDeviceUpdate}
             onUpdateGroup={this._onUpdateGroupNode}
+            onUpdateScatter={this._onUpdateScatterNode}
           />
         </section>
       </div>
