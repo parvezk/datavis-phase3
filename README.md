@@ -21,7 +21,7 @@ One the node modules are installed, run the project
 npm start -s
 
 ```
-### `npm start` to run the project
+### `npm start -s` to run the project
 
-## Runs the app in development mode.
-### Open http://localhost:3000 to view it in the browser.
+### Runs the app in development mode.
+#### Open http://localhost:3000 to view it in the browser.
