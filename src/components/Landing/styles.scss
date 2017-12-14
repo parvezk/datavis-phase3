@@ -8,31 +8,39 @@
   .col1 {
     background: $themeColor-Light;
     width: 400px;
+    
 
     .viz-title {
       font-size: 16px;
       font-weight: 400;
       text-indent: 20px;
       padding: 20px 0 0 0;
+      margin: 0 0 20px 0;
+      font-family: 'Franklin Gothic Medium', 'Arial', Arial, sans-serif;
     }
 
     .left-box {
       background: #fff;
-      height: 100%;
+      height: auto;
+      padding-bottom: 60px;
       margin: 20px;
       position: relative;
+      
 
       ul {
         margin: 5px 20px 0 20px;
         padding: 0;
         list-style-type: none;
+
         li {
             h4 {
                 margin: 5px 0;
                 padding: 0;
                 font-weight: 300;
+                color: #4d4d4d;
                 text-transform: uppercase;
                 font-family: sans-serif;
+                //font-family: 'Franklin Gothic Light', 'Arial' sans-serif;
             }
             p {
                 margin: 5px 0;
@@ -63,21 +71,6 @@
         width: 100%;
         margin: 0 auto;
         text-align: center;
-    }
-  }
-  .col3 {
-    width: 400px;
-    //background: rgb(243, 243, 243);
-    background: #202024 url(https://d1a3f4spazzrp4.cloudfront.net/web-fresh/pattern-grid-dark@1x.gif) repeat left top;
-    background-size: 18px 18px;
-
-    .inner {
-      padding: 20px;
-      color: #fff;
-        a {
-          text-decoration: none;
-          color: #fff;
-        }
     }
   }
 }

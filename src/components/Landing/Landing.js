@@ -9,7 +9,7 @@ import RightCol from './../RightCol/RightCol';
 import "./styles.scss";
 
 const force = d3.layout.force();
-let node, nodes, alpha;
+let node, nodes;
 
 class Landing extends React.Component {
   constructor(props) {
@@ -19,6 +19,8 @@ class Landing extends React.Component {
       DEVICE: "cardboard",
       currentSum: 137
     };
+
+    this._onUpdateGroupNode = this._onUpdateGroupNode.bind(this);
   }
 
   componentWillMount() {    
@@ -38,8 +40,16 @@ class Landing extends React.Component {
     this.getPersons();
   }
 
-  componentWillUpdate() {
+  shouldComponentUpdate(nextProps, nextState){
+    if (nextState.DEVICE === this.state.DEVICE ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
+  componentWillUpdate() {
+    console.log('componentWillUpdate')
     const { width, height } = this.props;
     const self = this;
     const dataSource = "../../assets/source.json";
@@ -47,8 +57,9 @@ class Landing extends React.Component {
     let persons;
 
     setTimeout(() => {
-      console.log(this.state);
+      
       const { VIDEO, DEVICE} = this.state;
+      let svg = d3.select("svg");
 
       d3.json(dataSource, function(error, source) {
         if (error) {
@@ -68,10 +79,10 @@ class Landing extends React.Component {
           //console.log(aggregates);
           //console.log(n);
           //console.log(dataset)
-  
-          node = d3.select("svg").selectAll(".node").data(nodes);
+      
+          node = svg.selectAll(".node").data(nodes);
           node.exit().remove();
-          d3.select("svg").remove(); 
+          svg.remove(); 
   
           nodes = d3.range(n).map(function(i) {
             let obj = {};
@@ -89,7 +100,7 @@ class Landing extends React.Component {
             return obj;
           });
   
-          const svg = d3
+          svg = d3
           .select(".container")
           .append("svg")
           .attr("width", width)
@@ -141,15 +152,9 @@ class Landing extends React.Component {
           .style("opacity", 1);
     
         d3.select(".container svg").on("mousedown", self.mousedown);
-    
-        //self.setState({ currentSum: n });  
         }
       });
     }, 200 );
-    
-
-    
-
   }
 
   componentDidUpdate() {
@@ -380,7 +385,7 @@ class Landing extends React.Component {
   tick = e => {
     // Push different nodes in different directions for clustering.
     let k = 6 * e.alpha;
-    alpha = e.alpha;
+
     nodes.forEach(function(o) {
       switch (o.sentiment) {
         case "power": { o.y += k; o.x += k; break; }
@@ -401,6 +406,23 @@ class Landing extends React.Component {
       .attr("cy", function(d) { return d.y; });
   };
 
+  ticked = e => {
+    node
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; });
+  };
+
+  _onUpdateGroupNode(e) {
+    
+    force
+    .on("tick", this.ticked)
+    .start();
+    
+   /* node = d3.select("svg").selectAll(".node").data(nodes);
+    node.attr("cx", function(d) { return d.x = d.x - 0.1; })
+    .attr("cy", function(d) { return d.y = d.y - 0.1; });*/
+  }
+
   _onVideoUpdate = (video) => {
     //const device = e.target.attributes.getNamedItem("data-device").value;
     this.setState({
@@ -420,14 +442,12 @@ class Landing extends React.Component {
 
   fillColors() {}
 
-  _groupNodes() {}
-
   render() {
     return (
       <div className="wrapper">
         <section className="col1">
           <div className="left-box">
-            <p className="viz-title">Visualization: Sentiments</p>
+            <p className="viz-title">Sentiment Analysis</p>
             <div>
               <ul>
                 <li>
@@ -466,15 +486,18 @@ class Landing extends React.Component {
             </div>
           </div>
         </section>
+
         <section className="col2">
           <div className="container" />
         </section>
+
         <section className="col3">
           <RightCol
             video={this.state.VIDEO}
             device={this.state.DEVICE}
             onVideoSelect={this._onVideoUpdate}
             onDeviceSelect={this._onDeviceUpdate}
+            onUpdateGroup={this._onUpdateGroupNode}
           />
         </section>
       </div>

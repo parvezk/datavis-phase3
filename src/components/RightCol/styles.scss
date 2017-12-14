@@ -12,5 +12,27 @@
           color: #fff;
           font-weight: 400;
         }
+
+        h4 {
+            margin: 0 0 5px 0;
+        }
+
+        form {
+
+            margin: 0 0 20px 0;
+            .dd-bloc {
+                margin: 10px 20px 0 0;
+    
+                h5 {
+                    //width: 110px;
+                    //float: left;
+                    //line-height: 2.6;
+                }
+    
+                .custom-dropdown{
+                    margin: 5px 10px 0 0;
+                }
+            }
+        }
     }
   }

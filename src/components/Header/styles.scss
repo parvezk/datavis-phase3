@@ -33,19 +33,21 @@
   nav {
     margin: 0;
     padding: 0;
-    background: #fff;
+    background: darkslategray;
 
     ul {
       list-style-type: none;
       margin: 0;
       padding: 0;
-      text-align: center;
+      text-align: left;
       li {
         display: inline-block;
         margin: 5px 20px;
         font-size: 13px;
+        
         text-transform: uppercase;
         a {
+          color: #fff;
           text-decoration: none;
         }
       }
