@@ -26,10 +26,10 @@ class Header extends React.Component {
         <nav>
           <ul>
             <li>
-              <Link to="/">Landing</Link>
+              <Link to="/">Visualization</Link>
             </li>
             <li>
-              <Link to="/list">List</Link>
+              <Link to="/list">Research</Link>
             </li>
           </ul>
         </nav>
