@@ -1,0 +1,45 @@
+let restorative = 0;
+        let restorativeAll = 0;
+        let fascination = 0;
+        let fascinationAll = 0;
+        let stimulation = 0;
+        let stimulationAll = 0;
+        let power = 0;
+        let powerAll = 0;
+
+        _aggregatePacks.forEach(data => {
+          for (let [key, value] of Object.entries(data)) {
+            switch (key) {
+              case "restorative": {
+                //console.log(value)
+                 restorative = Math.round(Math.cbrt(value));
+                 restorativeAll += restorative;
+      
+                break;
+              }
+
+              case "fascination": {
+                fascination = Math.round(Math.cbrt(value));
+                fascinationAll += fascination;
+                break;
+              }
+
+              case "stimulation": {
+                stimulation = Math.round(Math.cbrt(value));
+                stimulationAll += stimulation;
+                break;
+              }
+
+              case "power": {
+                power = Math.round(Math.cbrt(value));
+                powerAll += power;
+                break;
+              }
+            }
+          }
+
+        });
+        console.log('total: ', restorativeAll);
+        //console.log(fascinationAll);
+        //console.log(stimulationAll);
+        //console.log(powerAll);

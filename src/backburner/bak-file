@@ -1,0 +1,183 @@
+import React from "react";
+import ReactDom from "react-dom";
+import classnames from "classnames";
+
+import * as d3 from "d3";
+
+import "./styles.scss";
+
+class Landing extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentWillMount() {}
+
+  componentDidMount() {
+    const dataSource = "../../assets/source.json";
+    let ds, width, height;
+    width = 600;
+    height = 400;
+    const svg = this.__container;
+
+    d3.json(dataSource, function(error, source) {
+      if (error) {
+        console.log(error);
+      } else {
+        ds = source;
+        //buildLine();
+
+        const persons = ds.persons;
+        const totalUsers = Object.keys(persons).length;
+        let dataset = {},
+        _aggregatePacks = [];
+
+        // Initialize Dataset
+        const list = Object.values(persons[0].categories)[0];
+        const listItems = Object.values(list)[0];
+        Object.keys(listItems).forEach(e => {
+          dataset[e] = 0;
+        });
+
+        //const VIDEO = "mosul";
+        //const DEVICE = "cardboard";
+        
+        // Filter all persons to pick sentiment data 
+        // matching [DEVICE][VIDEO]
+        Array.from(persons).map((user) => {
+          const categories = user.categories;
+       
+          for (const value of Object.values(categories)) {
+       
+            Object.values(value).map(e => {
+              _aggregatePacks.push(e);
+            });
+          }
+        });
+        console.log(_aggregatePacks);
+        // TEST AGG DATA
+
+        // Cumulative Data Object
+        let _CUMULATIVE = [];
+        _aggregatePacks.forEach(data => {
+          for (let [key, value] of Object.entries(data)) {
+            let obj = {};
+            obj[key] = value;
+            _CUMULATIVE.push(obj);
+          }
+        });
+
+        _aggregatePacks.forEach(data => {
+          for (let [key, value] of Object.entries(data)) {
+            switch (key) {
+              case "restorative": {
+                dataset.restorative += value;
+                break;
+              }
+
+              case "fascination": {
+                dataset.fascination += value;
+                break;
+              }
+
+              case "stimulation": {
+                dataset.stimulation += value;
+                break;
+              }
+
+              case "power": {
+                dataset.power += value;
+                break;
+              }
+            }
+            
+          }
+        });
+        //onsole.log(dataset);
+
+        //console.log(dataset);
+        // RATIO AGGREGATION
+        let pts;
+        for (let [key, value] of Object.entries(dataset)) {
+          pts = Math.sqrt(value);
+          pts = Math.trunc(pts);
+          dataset[key] = pts;
+        }
+        //console.log(dataset);
+
+        
+        let n = 0;
+        Object.values(dataset).forEach(e => (n += e));
+        //console.log(n);
+
+        const svg = d3
+          .select("body")
+          .append("svg")
+          .attr("width", width)
+          .attr("height", height);
+
+          //get some colors
+          const fill = d3.scale.category10();
+
+          //build a map of 100 nodes
+          //fun to play with to see the effects
+          const nodes = d3.range(n).map(function(i) {
+            return {index: i};
+          });
+
+          // combine nodes and CUMULATIVE
+
+          const tick = (e) => {
+
+            // Push different nodes in different directions for clustering.
+            const k = 6 * e.alpha;
+            nodes.forEach(function(o, i) {
+              //console.log(o)
+              o.y += i & 1 ? k : -k;
+              o.x += i & 2 ? k : -k;
+            });
+          
+            node.attr("cx", function(d) { return d.x; })
+                .attr("cy", function(d) { return d.y; });
+          }
+
+          //build our layout
+          const force = d3.layout.force()
+          .nodes(nodes)
+          .size([width, height])
+          .on("tick", tick)
+          .start();
+
+          //add the nodes
+          const node = svg.selectAll(".node")
+          .data(nodes)
+          .enter().append("circle")
+          .attr("class", "node")
+          .attr("cx", function(d) { return d.x; }) //relative position
+          .attr("cy", function(d) { return d.y; }) //relative position
+          .attr("r", 8) //radius = size of circle
+          .style("fill", function(d, i) { return fill(i & 3); }) //random based on color scale above
+          .style("stroke", function(d, i) { return d3.rgb(fill(i & 3)).darker(2); }) 
+          .call(force.drag)
+          .on("mousedown", function() { d3.event.stopPropagation(); });
+
+          svg.style("opacity", 1e-6)
+          .transition()
+          .duration(1000)
+          .style("opacity", 1);
+
+
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    d3.select("svg").remove();
+  }
+  render() {
+    return <div />;
+  }
+}
+
+export default Landing;

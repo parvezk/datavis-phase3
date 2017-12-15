@@ -13,6 +13,7 @@ import "./styles.scss";
 
 const force = d3.layout.force();
 let node, nodes, personData;
+let totalNodes = 0;
 
 class Landing extends React.Component {
   constructor(props) {
@@ -81,11 +82,11 @@ class Landing extends React.Component {
   
           let n = 0;
           Object.values(aggregates).forEach(e => (n += e));
-  
+          totalNodes = n;
           /** DATA CHECK */
           //console.log(aggregates);
           console.log(n);
-          console.log(dataset);
+          //console.log(dataset);
       
           node = svg.selectAll(".node").data(nodes);
           node.exit().remove();
@@ -193,19 +194,19 @@ class Landing extends React.Component {
     .attr("x", 460)
     .attr("y", 20)
     .attr("dy", ".35em")
-    .text(function(d) { return "FASCINATION: " + aggregates.fascination; });
+    .text(function() { return "FASCINATION: " + aggregates.fascination; });
     
     svg.append("text")
     .attr("x", 20)
     .attr("y", 530)
     .attr("dy", ".35em")
-    .text(function(d) { return "STIMULATION: " + aggregates.stimulation; });
+    .text(function() { return "STIMULATION: " + aggregates.stimulation; });
 
     svg.append("text")
     .attr("x", 510)
     .attr("y", 530)
     .attr("dy", ".35em")
-    .text(function(d) { return "POWER: " + aggregates.power; });
+    .text(function() { return "POWER: " + aggregates.power; });
 
     /*svg.append('div')
 		.attr('class', function (d) { "sds"; })
@@ -363,7 +364,7 @@ class Landing extends React.Component {
     const aggregates = this.getCountset(persons);
     let n = 0;
     Object.values(aggregates).forEach(e => (n += e));
-
+    totalNodes = n;
     /** CHECK DATA **/
     //console.log(n);
     //console.log(aggregates);

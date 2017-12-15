@@ -126,6 +126,22 @@ class RightCol extends React.Component {
             <button type="button" onClick={this._UpdateGroup}> Group All</button>
             <button type="button" onClick={this._UpdateScatter}>Scatter All</button>
         </div>
+        
+        <div className="video_details">
+        <h4>360 Videos</h4>
+        <div>
+          <hr />
+        </div>
+
+        <div>
+            <ul>
+              <li><p><strong>Mosul: </strong>“The battle for Mosul,” a story documenting the fight in a major city in northern Iraq.</p></li>
+              <li><p><strong>Elephant: </strong>An exploration of the ivory trade in Thailand.</p></li>
+              <li><p><strong>New Orleans: </strong>A cultural parade in New Orleans.</p></li>
+              <li><p><strong>The Blu: </strong>An underwater experience exploring biodiversity and marine species..</p></li>
+            </ul>
+        </div>
+        </div>
 
       </div>
     );
