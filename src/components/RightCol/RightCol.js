@@ -129,7 +129,7 @@ class RightCol extends React.Component {
 
         <div className="data_notes">
           <p><strong>Visualization: </strong>Force layout uses physical simulation for positioning visual elements. Nodes are rendered in groups to form a cluster each representing different sentiments. Nodes also represents sentiment value per person.  </p>
-          <p><strong>Computation: </strong> The sum of values were in the range of 0-1000. Before mapping the input values with the nodes. The total value were scaled down to a small value in same ratio, by taking cube root of the total amount (using Math.cbrt())</p>
+          <p><strong>Computation: </strong> The sum of values were in the range of 0-1000. Before mapping the input values with the nodes. The total value were scaled down to a small value in same ratio, by taking cube root of the total values (using Math.cbrt())</p>
         </div>
         
         <div className="video_details">
