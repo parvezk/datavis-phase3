@@ -568,6 +568,7 @@ class Landing extends React.Component {
             </div>
           </div>
           <div className="disclaimer_notes">
+            <p>Click on the research tab for link to the full report: <br /><strong>AP Insights: Age of Dynamic Storytelling</strong></p>
             <p>
               <sup>*</sup> Hover over the node to see the name of the person participated in the research.
             </p>
