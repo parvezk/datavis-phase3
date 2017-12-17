@@ -37,7 +37,6 @@
         }
 
         .btnGroups {
-
             button {
                 width: 80px;
                 height: 25px;
@@ -45,16 +44,26 @@
                 font-size: 12px;
                 margin: 10px 15px 20px 0px;
             }
+        }
 
+        .data_notes{
+            font-size: 12px;
+            p {
+                margin: 0 0 5px 0;
+                padding: 0;
+                line-height: 1.6;  
+                opacity: 0.9              
+                //color: dimgray;
+            }
         }
 
         .video_details {
             margin: 20px 0;
-            opacity: 0.7;
+            
             font-size: 12px;
 
             ul {
-                
+                opacity: 0.8;
                 list-style-type: none;
                 li {
                     p {
