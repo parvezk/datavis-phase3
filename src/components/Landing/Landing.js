@@ -567,6 +567,11 @@ class Landing extends React.Component {
               </ul>
             </div>
           </div>
+          <div className="disclaimer_notes">
+            <p>
+              <sup>*</sup> Hover over the node to see the name of the person participated in the research.
+            </p>
+          </div>
         </section>
 
         <section className="col2">
