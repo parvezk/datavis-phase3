@@ -29,19 +29,26 @@ class RightCol extends React.Component {
   }
 
   handleChange(event) {
-    const { device, formControls } = this.props;
+    
+    const { formControls } = this.props;
     const video = event.target.value;
+    let cDevice = "";
+
+    if (video === "the_blue"){
+      cDevice = "HTC";
+    } else {
+      cDevice = formControls[video][0][0].toLowerCase() + formControls[video][0].substr(1);
+    }
 
     this.setState({
       video: event.target.value,
-      device: (formControls[video][0] == "HTC") ? formControls[video][0] : device,
+      device: cDevice,
       formControls: formControls[video]
     });
+
     if (this.props.onVideoSelect) {
-      this.props.onVideoSelect(video.toLowerCase());
+      this.props.onVideoSelect(video.toLowerCase(), cDevice);
     }
-
-
   }
 
   handleDeviceChange = event => {
@@ -69,7 +76,7 @@ class RightCol extends React.Component {
 
   render() {
     const { video, device, formControls } = this.state;
-    
+
     return (
       <div className="inner">
         <h4>360 Videos and VR Devices</h4>

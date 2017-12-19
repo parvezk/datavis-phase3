@@ -68,7 +68,7 @@ class Landing extends React.Component {
       
       const { VIDEO, DEVICE} = this.state;
       let svg = d3.select("svg");
-
+      
       d3.json(dataSource, function(error, source) {
         if (error) {
           console.log(error);
@@ -503,19 +503,15 @@ class Landing extends React.Component {
     .start();
   }
 
-  _onVideoUpdate = (video) => {
+  _onVideoUpdate = (video, device) => {
     //const device = e.target.attributes
     //.getNamedItem("data-device").value;
-    
+    //console.log(video, device, "CAME FROM")
     this.setState({
-      VIDEO: video
+      VIDEO: video,
+      DEVICE: device
     });
 
-    if (video === "the_blue") {
-      this.setState({
-        DEVICE: "HTC"
-      });
-    }
   };
 
   _onDeviceUpdate = (device) => {
