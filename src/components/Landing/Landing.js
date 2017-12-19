@@ -498,20 +498,24 @@ class Landing extends React.Component {
   }
 
   _onUpdateScatterNode() {
-
-    console.log('here here')
     force
     .on("tick", this.tick)
     .start();
   }
 
   _onVideoUpdate = (video) => {
-    console.log(video);
     //const device = e.target.attributes
     //.getNamedItem("data-device").value;
+    
     this.setState({
       VIDEO: video
     });
+
+    if (video === "the_blue") {
+      this.setState({
+        DEVICE: "HTC"
+      });
+    }
   };
 
   _onDeviceUpdate = (device) => {

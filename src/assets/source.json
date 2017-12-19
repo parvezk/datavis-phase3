@@ -45,6 +45,14 @@
             "stimulation": 1,
             "power": 1
           }
+        },
+        "the_blue": {
+          "HTC": {
+            "restorative": 216,
+            "fascination": 65,
+            "stimulation": 8,
+            "power": 17
+          }
         }
       }
     },
@@ -92,9 +100,18 @@
             "stimulation": 34,
             "power": 41
           }
+        },
+        "the_blue": {
+          "HTC": {
+            "restorative": 170,
+            "fascination": 68,
+            "stimulation": 66,
+            "power": 57
+          }
         }
-      }
+        }
     },
+
     {
       "name": "Jason",
       "categories": {
@@ -139,6 +156,14 @@
             "stimulation": 1,
             "power": 3
           }
+        },
+        "the_blue": {
+          "HTC": {
+            "restorative": 196,
+            "fascination": 112,
+            "stimulation": 23,
+            "power": 52
+          }
         }
       }
     },
@@ -181,6 +206,14 @@
             "power": 1
           },
           "samsung": {
+            "restorative": 1,
+            "fascination": 1,
+            "stimulation": 1,
+            "power": 1
+          }
+        },
+        "the_blue": {
+          "HTC": {
             "restorative": 1,
             "fascination": 1,
             "stimulation": 1,
@@ -233,6 +266,14 @@
             "stimulation": 11,
             "power": 85
           }
+        },
+        "the_blue": {
+          "HTC": {
+            "restorative": 1,
+            "fascination": 1,
+            "stimulation": 1,
+            "power": 1
+          }
         }
       }
     },
@@ -279,6 +320,14 @@
             "fascination": 40,
             "stimulation": 8,
             "power": 56
+          }
+        },
+        "the_blue": {
+          "HTC": {
+            "restorative": 38,
+            "fascination": 171,
+            "stimulation": 52,
+            "power": 119
           }
         }
       }
@@ -327,6 +376,14 @@
             "stimulation": 12,
             "power": 7
           }
+        },
+        "the_blue": {
+          "HTC": {
+            "restorative": 77,
+            "fascination": 149,
+            "stimulation": 12,
+            "power": 81
+          }
         }
       }
     },
@@ -373,6 +430,14 @@
             "fascination": 105,
             "stimulation": 15,
             "power": 129
+          }
+        },
+        "the_blue": {
+          "HTC": {
+            "restorative": 1,
+            "fascination": 1,
+            "stimulation": 1,
+            "power": 1
           }
         }
       }
@@ -421,6 +486,14 @@
             "stimulation": 16,
             "power": 46
           }
+        },
+        "the_blue": {
+          "HTC": {
+            "restorative": 54,
+            "fascination": 194,
+            "stimulation": 14,
+            "power": 151
+          }
         }
       }
     },
@@ -463,6 +536,14 @@
             "power": 1
           },
           "samsung": {
+            "restorative": 1,
+            "fascination": 1,
+            "stimulation": 1,
+            "power": 1
+          }
+        },
+        "the_blue": {
+          "HTC": {
             "restorative": 1,
             "fascination": 1,
             "stimulation": 1,

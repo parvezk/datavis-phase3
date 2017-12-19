@@ -29,12 +29,16 @@ class RightCol extends React.Component {
   }
 
   handleChange(event) {
-    const videoSelected = event.target.value;
+    const { device, formControls } = this.props;
+    const video = event.target.value;
+
     this.setState({
-      video: event.target.value
+      video: event.target.value,
+      device: (formControls[video][0] == "HTC") ? formControls[video][0] : device,
+      formControls: formControls[video]
     });
     if (this.props.onVideoSelect) {
-      this.props.onVideoSelect(videoSelected.toLowerCase());
+      this.props.onVideoSelect(video.toLowerCase());
     }
 
 
@@ -52,14 +56,12 @@ class RightCol extends React.Component {
   };
 
   _UpdateGroup = () => {
-    
     if (this.props.onUpdateGroup) {
       this.props.onUpdateGroup();
     }
   };
 
   _UpdateScatter = () => {
-    console.log('KPPP')
     if (this.props.onUpdateScatter) {
       this.props.onUpdateScatter();
     }
@@ -67,7 +69,7 @@ class RightCol extends React.Component {
 
   render() {
     const { video, device, formControls } = this.state;
-
+    
     return (
       <div className="inner">
         <h4>360 Videos and VR Devices</h4>
