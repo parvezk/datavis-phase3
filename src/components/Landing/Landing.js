@@ -212,11 +212,20 @@ class Landing extends React.Component {
     .attr("dy", ".35em")
     .text(function() { return "POWER: " + aggregates.power; });
 
-    svg.append("text")
-    .attr("x", 260)
-    .attr("y", 530)
+    
+
+    /*svg.append("text")
+    .attr("class", "num")
+    .attr("x", 20)
+    .attr("y", 560)
     .attr("dy", ".35em")
-    .text(function() { return "TOTAL: " + totalNodes; });
+    .text(function() { return "Stimulation: " + aggregates.stimulation; });*/
+
+    /*svg.append("text")
+    .attr("x", 20)
+    .attr("y", 550)
+    .attr("dy", ".35em")
+    .text(function() { return "TOTAL: " + totalNodes; });*/
 
     /*svg.append('div')
 		.attr('class', function (d) { "sds"; })
@@ -606,7 +615,7 @@ class Landing extends React.Component {
 
 Landing.defaultProps = {
   width: 600,
-  height: 540
+  height: 550
 };
 
 export default Landing;
