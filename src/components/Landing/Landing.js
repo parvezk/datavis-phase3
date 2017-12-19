@@ -185,28 +185,38 @@ class Landing extends React.Component {
     const svg = d3.select('svg');
     // Add labels
     svg.append("text")
+    .attr("class", "num")
     .attr("x", 20)
     .attr("y", 20)
     .attr("dy", ".35em")
     .text(function(d) { return "OPEN-MINDEDNESS: " + aggregates.restorative; })
 
     svg.append("text")
+    .attr("class", "num")
     .attr("x", 460)
     .attr("y", 20)
     .attr("dy", ".35em")
     .text(function() { return "FASCINATION: " + aggregates.fascination; });
     
     svg.append("text")
+    .attr("class", "num")
     .attr("x", 20)
     .attr("y", 530)
     .attr("dy", ".35em")
     .text(function() { return "STIMULATION: " + aggregates.stimulation; });
 
     svg.append("text")
+    .attr("class", "num")
     .attr("x", 510)
     .attr("y", 530)
     .attr("dy", ".35em")
     .text(function() { return "POWER: " + aggregates.power; });
+
+    svg.append("text")
+    .attr("x", 260)
+    .attr("y", 530)
+    .attr("dy", ".35em")
+    .text(function() { return "TOTAL: " + totalNodes; });
 
     /*svg.append('div')
 		.attr('class', function (d) { "sds"; })
