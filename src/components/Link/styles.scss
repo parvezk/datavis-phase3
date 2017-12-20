@@ -1,27 +1,27 @@
 .research_paper {
-    margin: 30px ;
-    width: 600px;
+  margin: 30px;
+  width: 600px;
 
-    blockquote {
-        h3 {
-            margin: 10px 0;
-            a {
-                color: darkcyan
-            }
-        }
-        p {
-            a {
-                color: blue;
-            }
-        }
-        cite {
-            margin: 10px 0;
-            display: inline-block;
-            
-            a {
-                font-style: normal;
-                color: dimgray;
-            }
-        }
+  blockquote {
+    h3 {
+      margin: 10px 0;
+      a {
+        color: darkcyan;
+      }
     }
+    p {
+      a {
+        color: blue;
+      }
+    }
+    cite {
+      margin: 10px 0;
+      display: inline-block;
+
+      a {
+        font-style: normal;
+        color: dimgray;
+      }
+    }
+  }
 }
