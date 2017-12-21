@@ -29,15 +29,16 @@ class RightCol extends React.Component {
   }
 
   handleChange(event) {
-    
     const { formControls } = this.props;
     const video = event.target.value;
     let cDevice = "";
 
-    if (video === "the_blue"){
+    if (video === "the_blue") {
       cDevice = "HTC";
     } else {
-      cDevice = formControls[video][0][0].toLowerCase() + formControls[video][0].substr(1);
+      cDevice =
+        formControls[video][0][0].toLowerCase() +
+        formControls[video][0].substr(1);
     }
 
     this.setState({
@@ -54,7 +55,7 @@ class RightCol extends React.Component {
   handleDeviceChange = event => {
     //event.preventDefault();
     const deviceSelected = event.target.value;
-    this.setState({ 
+    this.setState({
       device: deviceSelected
     });
     if (this.props.onDeviceSelect) {
@@ -116,10 +117,8 @@ class RightCol extends React.Component {
                       onChange={this.handleDeviceChange}
                       className="custom-dropdown__select custom-dropdown__select--white"
                     >
-                      
-                        <option value={formControls[0]}>{formControls[0]}</option>
-                        <option value={formControls[1]}>{formControls[1]}</option>
-                      
+                      <option value={formControls[0]}>{formControls[0]}</option>
+                      <option value={formControls[1]}>{formControls[1]}</option>
                     </select>
                   </div>
                 )}
@@ -132,31 +131,65 @@ class RightCol extends React.Component {
         </div>
 
         <div className="btnGroups">
-            <button type="button" onClick={this._UpdateGroup}> Group All</button>
-            <button type="button" onClick={this._UpdateScatter}>Scatter All</button>
+          <button type="button" onClick={this._UpdateGroup}>
+            {" "}
+            Group All
+          </button>
+          <button type="button" onClick={this._UpdateScatter}>
+            Scatter All
+          </button>
         </div>
 
         <div className="data_notes">
-          <p><strong>Visualization: </strong>Force layout uses physical simulation for positioning visual elements. Nodes are rendered in groups to form a cluster each representing different sentiments. Nodes also represents sentiment value per person.  </p>
-          <p><strong>Computation: </strong> The sum of values were in the range of 0-1000. Before mapping the input values with the nodes. The total value were scaled down to a small value in same ratio, by taking cube root of the total values (using Math.cbrt())</p>
+          <p>
+            <strong>Visualization: </strong>Force layout uses physical
+            simulation for positioning visual elements. Nodes are rendered in
+            groups to form a cluster each representing different sentiments.
+            Nodes also represents sentiment value per person.{" "}
+          </p>
+          <p>
+            <strong>Computation: </strong> The sum of values were in the range
+            of 0-1000. Before mapping the input values with the nodes. The total
+            value were scaled down to a small value in same ratio, by taking
+            cube root of the total values (using Math.cbrt())
+          </p>
         </div>
-        
+
         <div className="video_details">
-        <h4>360 Videos</h4>
-        <div>
-          <hr />
-        </div>
+          <h4>360 Videos</h4>
+          <div>
+            <hr />
+          </div>
 
-        <div>
+          <div>
             <ul>
-              <li><p><strong>Mosul: </strong>“The battle for Mosul,” a story documenting the fight in a major city in northern Iraq.</p></li>
-              <li><p><strong>Elephant: </strong>An exploration of the ivory trade in Thailand.</p></li>
-              <li><p><strong>New Orleans: </strong>A cultural parade in New Orleans.</p></li>
-              <li><p><strong>The Blu: </strong>An underwater experience exploring biodiversity and marine species..</p></li>
+              <li>
+                <p>
+                  <strong>Mosul: </strong>“The battle for Mosul,” a story
+                  documenting the fight in a major city in northern Iraq.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong>Elephant: </strong>An exploration of the ivory trade
+                  in Thailand.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong>New Orleans: </strong>A cultural parade in New
+                  Orleans.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong>The Blu: </strong>An underwater experience exploring
+                  biodiversity and marine species..
+                </p>
+              </li>
             </ul>
+          </div>
         </div>
-        </div>
-
       </div>
     );
   }
