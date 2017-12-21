@@ -1,11 +1,7 @@
 .col3 {
-  width: 400px;
-  //background: rgb(243, 243, 243);
-  background: #202024
-    url(https://d1a3f4spazzrp4.cloudfront.net/web-fresh/pattern-grid-dark@1x.gif)
-    repeat left top;
+  width: 400px; //background: rgb(243, 243, 243);
+  background: #202024 url(https://d1a3f4spazzrp4.cloudfront.net/web-fresh/pattern-grid-dark@1x.gif) repeat left top;
   background-size: 18px 18px;
-
   .inner {
     padding: 20px;
     color: #fff;
@@ -14,29 +10,23 @@
       color: #fff;
       font-weight: 400;
     }
-
     h4 {
       margin: 0 0 5px 0;
     }
-
     form {
       margin: 0 0 20px 0;
       .dd-bloc {
         margin: 10px 20px 0 0;
-
         h5 {
-          font-size: 12px;
-          //width: 110px;
+          font-size: 12px; //width: 110px;
           //float: left;
           //line-height: 2.6;
         }
-
         .custom-dropdown {
           margin: 5px 10px 0 0;
         }
       }
     }
-
     .btnGroups {
       button {
         width: 80px;
@@ -46,23 +36,18 @@
         margin: 10px 15px 20px 0px;
       }
     }
-
     .data_notes {
       font-size: 12px;
       p {
         margin: 0 0 5px 0;
         padding: 0;
         line-height: 1.6;
-        opacity: 0.9;
-        //color: dimgray;
+        opacity: 0.9; //color: dimgray;
       }
     }
-
     .video_details {
       margin: 20px 0;
-
       font-size: 12px;
-
       ul {
         opacity: 0.8;
         list-style-type: none;
