@@ -7,7 +7,7 @@ import d3Tip from "d3-tip";
 
 d3.tip = d3Tip;
 
-import RightCol from './../RightCol/RightCol';
+import RightCol from "./../RightCol/RightCol";
 
 import "./styles.scss";
 
@@ -28,9 +28,7 @@ class Landing extends React.Component {
     this._onUpdateScatterNode = this._onUpdateScatterNode.bind(this);
   }
 
-  componentWillMount() {    
- 
-  }
+  componentWillMount() {}
 
   componentDidMount() {
     const { width, height } = this.props;
@@ -45,7 +43,7 @@ class Landing extends React.Component {
     this.getPersons();
   }
 
-  shouldComponentUpdate(nextProps, nextState){
+  shouldComponentUpdate(nextProps, nextState) {
     return true;
     /*
     if (nextState.DEVICE === this.state.DEVICE && nextState.VIDEO === this.state.VIDEO ) {
@@ -57,7 +55,7 @@ class Landing extends React.Component {
   }
 
   componentWillUpdate() {
-    console.log('componentWillUpdate');
+    console.log("componentWillUpdate");
     const { width, height } = this.props;
     const self = this;
     const dataSource = "../../assets/source.json";
@@ -65,21 +63,20 @@ class Landing extends React.Component {
     let persons;
 
     setTimeout(() => {
-      
-      const { VIDEO, DEVICE} = this.state;
+      const { VIDEO, DEVICE } = this.state;
       let svg = d3.select("svg");
-      
+
       d3.json(dataSource, function(error, source) {
         if (error) {
           console.log(error);
         } else {
           ds = source;
-  
+
           personData = persons = ds.persons;
-          
+
           const dataset = self.getDataset(VIDEO, DEVICE, persons);
           const aggregates = self.getCountset(persons);
-  
+
           let n = 0;
           Object.values(aggregates).forEach(e => (n += e));
           totalNodes = n;
@@ -87,14 +84,14 @@ class Landing extends React.Component {
           //console.log(aggregates);
           console.log(n);
           //console.log(dataset);
-      
+
           node = svg.selectAll(".node").data(nodes);
           node.exit().remove();
-          svg.remove(); 
-  
+          svg.remove();
+
           nodes = d3.range(n).map(function(i) {
             let obj = {};
-            
+
             let input = dataset[i];
             let sentiment = Object.keys(input);
             if (sentiment) {
@@ -107,112 +104,115 @@ class Landing extends React.Component {
             obj.index = i;
             return obj;
           });
-  
+
           svg = d3
-          .select(".container")
-          .append("svg")
-          .attr("width", width)
-          .attr("height", height);
-  
+            .select(".container")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
           force
-          .nodes(nodes)
-          .size([width, height])
-          .on("tick", self.tick)
-          .start();
-  
+            .nodes(nodes)
+            .size([width, height])
+            .on("tick", self.tick)
+            .start();
+
           node = d3
-          .select("svg")
-          .selectAll(".node")
-          .data(nodes)
-          .enter()
-          .append("circle")
-          .attr("style", "cursor: pointer")
-          .attr("class", "node")
-          .attr("cx", function(d) {
-            return d.x;
-          }) //relative position
-          .attr("cy", function(d) {
-            return d.y;
-          }) //relative position
-          .attr("r", 8) //radius = size of circle
-          .style("fill", function(d) {
-            //return fill(i & 3); //random based on color scale above
-            return d.sentiment == "restorative"
-              ? "#ff7f0e"
-              : d.sentiment == "fascination"
-                ? "#2ca02c"
-                : d.sentiment == "stimulation" ? "#1f77b4" : "#d62728";
-          })
-          .attr("data-value", (d) => {
-            return d.sentiment;
-          })
-          .call(force.drag)
-          .on("mousedown", function() {
-            currentEvent.stopPropagation();
-          });
-  
+            .select("svg")
+            .selectAll(".node")
+            .data(nodes)
+            .enter()
+            .append("circle")
+            .attr("style", "cursor: pointer")
+            .attr("class", "node")
+            .attr("cx", function(d) {
+              return d.x;
+            }) //relative position
+            .attr("cy", function(d) {
+              return d.y;
+            }) //relative position
+            .attr("r", 8) //radius = size of circle
+            .style("fill", function(d) {
+              //return fill(i & 3); //random based on color scale above
+              return d.sentiment == "restorative"
+                ? "#ff7f0e"
+                : d.sentiment == "fascination"
+                  ? "#2ca02c"
+                  : d.sentiment == "stimulation" ? "#1f77b4" : "#d62728";
+            })
+            .attr("data-value", d => {
+              return d.sentiment;
+            })
+            .call(force.drag)
+            .on("mousedown", function() {
+              currentEvent.stopPropagation();
+            });
+
           d3
-          .select("svg")
-          .style("opacity", 1e-6)
-          .transition()
-          .duration(1000)
-          .style("opacity", 1);
-    
-        d3.select(".container svg").on("mousedown", self.mousedown);
+            .select("svg")
+            .style("opacity", 1e-6)
+            .transition()
+            .duration(1000)
+            .style("opacity", 1);
+
+          d3.select(".container svg").on("mousedown", self.mousedown);
         }
         self.addLabels();
       });
-      
-
-    }, 200 );
-
-    
+    }, 200);
   }
 
-  componentDidUpdate() {
-   
-  }
+  componentDidUpdate() {}
 
   componentWillUnmount() {
     d3.select("svg").remove();
   }
 
   addLabels() {
-    
     const aggregates = this.getCountset(personData);
     console.log(aggregates);
 
-    const svg = d3.select('svg');
+    const svg = d3.select("svg");
     // Add labels
-    svg.append("text")
-    .attr("class", "num")
-    .attr("x", 20)
-    .attr("y", 20)
-    .attr("dy", ".35em")
-    .text(function(d) { return "OPEN-MINDEDNESS: " + aggregates.restorative; })
+    svg
+      .append("text")
+      .attr("class", "num")
+      .attr("x", 20)
+      .attr("y", 20)
+      .attr("dy", ".35em")
+      .text(function(d) {
+        return "OPEN-MINDEDNESS: " + aggregates.restorative;
+      });
 
-    svg.append("text")
-    .attr("class", "num")
-    .attr("x", 460)
-    .attr("y", 20)
-    .attr("dy", ".35em")
-    .text(function() { return "FASCINATION: " + aggregates.fascination; });
-    
-    svg.append("text")
-    .attr("class", "num")
-    .attr("x", 20)
-    .attr("y", 530)
-    .attr("dy", ".35em")
-    .text(function() { return "STIMULATION: " + aggregates.stimulation; });
+    svg
+      .append("text")
+      .attr("class", "num")
+      .attr("x", 460)
+      .attr("y", 20)
+      .attr("dy", ".35em")
+      .text(function() {
+        return "FASCINATION: " + aggregates.fascination;
+      });
 
-    svg.append("text")
-    .attr("class", "num")
-    .attr("x", 510)
-    .attr("y", 530)
-    .attr("dy", ".35em")
-    .text(function() { return "POWER: " + aggregates.power; });
+    svg
+      .append("text")
+      .attr("class", "num")
+      .attr("x", 20)
+      .attr("y", 530)
+      .attr("dy", ".35em")
+      .text(function() {
+        return "STIMULATION: " + aggregates.stimulation;
+      });
 
-    
+    svg
+      .append("text")
+      .attr("class", "num")
+      .attr("x", 510)
+      .attr("y", 530)
+      .attr("dy", ".35em")
+      .text(function() {
+        return "POWER: " + aggregates.power;
+      });
 
     /*svg.append("text")
     .attr("class", "num")
@@ -235,7 +235,6 @@ class Landing extends React.Component {
 		.style('width', 100 + "px")
 		.style('height', 100 + "px")
 		.style('background-color', function (d) { return "yellow"; })*/
-
   }
 
   getPersons() {
@@ -364,19 +363,19 @@ class Landing extends React.Component {
   }
 
   forceLayout(persons) {
-    
     const { VIDEO, DEVICE } = this.state;
     const { width, height } = this.props;
     const svg = d3.select("svg");
-    
+
     //Set up tooltip
-    const tip = d3.tip()
-    .attr('class', 'd3-tip')
-    .offset([-3, 0])
-    .html(function (d) {
-      return  " " + d.name + " ";
-    });
-    
+    const tip = d3
+      .tip()
+      .attr("class", "d3-tip")
+      .offset([-3, 0])
+      .html(function(d) {
+        return " " + d.name + " ";
+      });
+
     svg.call(tip);
 
     const dataset = this.getDataset(VIDEO, DEVICE, persons);
@@ -400,7 +399,7 @@ class Landing extends React.Component {
       if (sentiment) {
         sentiment = sentiment[0];
       }
-      
+
       for (let [key, value] of Object.entries(input)) {
         obj[key] = value;
         obj.sentiment = sentiment;
@@ -438,23 +437,23 @@ class Landing extends React.Component {
             ? "#2ca02c"
             : d.sentiment == "stimulation" ? "#1f77b4" : "#d62728";
       })
-      .attr("data-value", (d) => {
+      .attr("data-value", d => {
         return d.sentiment;
       })
       .call(force.drag)
       .on("mousedown", function() {
         currentEvent.stopPropagation();
       })
-      .on('mouseover', function(d) {
+      .on("mouseover", function(d) {
         tip.show(d, this);
         currentEvent.stopPropagation();
         currentEvent.preventDefault();
       }) //Added
-      .on('mouseout', function(d) {
+      .on("mouseout", function(d) {
         tip.hide(d, this);
         currentEvent.stopPropagation();
         currentEvent.preventDefault();
-      }); //Removed 
+      }); //Removed
 
     d3
       .select("svg")
@@ -464,7 +463,6 @@ class Landing extends React.Component {
       .style("opacity", 1);
 
     d3.select(".container svg").on("mousedown", this.mousedown);
-      
   }
 
   mousedown = () => {
@@ -475,51 +473,66 @@ class Landing extends React.Component {
     force.resume();
   };
 
-  tick = (e) => {
+  tick = e => {
     // Push different nodes in different directions for clustering.
     let k = 6 * e.alpha;
 
     nodes.forEach(function(o) {
       switch (o.sentiment) {
-        case "power": { o.y += k; o.x += k; break; }
-        case "stimulation": { o.y += k; o.x += -k; break; }
-        case "fascination": { 
-          o.y += -k; 
-          o.x += k; 
-          break; 
+        case "power": {
+          o.y += k;
+          o.x += k;
+          break;
         }
-        case "restorative": { o.y += -k; o.x += -k; break;}
+        case "stimulation": {
+          o.y += k;
+          o.x += -k;
+          break;
+        }
+        case "fascination": {
+          o.y += -k;
+          o.x += k;
+          break;
+        }
+        case "restorative": {
+          o.y += -k;
+          o.x += -k;
+          break;
+        }
       }
       //o.y += i & 1 ? k : -k;
       //o.x += i & 2 ? k : -k;
     });
 
     node
-      .attr("cx", function(d) { return d.x; })
-      .attr("cy", function(d) { return d.y; });
+      .attr("cx", function(d) {
+        return d.x;
+      })
+      .attr("cy", function(d) {
+        return d.y;
+      });
   };
 
-  ticked = (e) => {
+  ticked = e => {
     node
-      .attr("cx", function(d) { return d.x; })
-      .attr("cy", function(d) { return d.y; });
+      .attr("cx", function(d) {
+        return d.x;
+      })
+      .attr("cy", function(d) {
+        return d.y;
+      });
   };
 
   _onUpdateGroupNode() {
-    
-    force
-    .on("tick", this.ticked)
-    .start();
-    
-   /* node = d3.select("svg").selectAll(".node").data(nodes);
+    force.on("tick", this.ticked).start();
+
+    /* node = d3.select("svg").selectAll(".node").data(nodes);
     node.attr("cx", function(d) { return d.x = d.x - 0.1; })
     .attr("cy", function(d) { return d.y = d.y - 0.1; });*/
   }
 
   _onUpdateScatterNode() {
-    force
-    .on("tick", this.tick)
-    .start();
+    force.on("tick", this.tick).start();
   }
 
   _onVideoUpdate = (video, device) => {
@@ -530,10 +543,9 @@ class Landing extends React.Component {
       VIDEO: video,
       DEVICE: device
     });
-
   };
 
-  _onDeviceUpdate = (device) => {
+  _onDeviceUpdate = device => {
     this.setState({
       DEVICE: device
     });
@@ -552,7 +564,9 @@ class Landing extends React.Component {
             <div>
               <ul>
                 <li>
-                  <h4><span className="restorative">&nbsp;</span>Open-Mindedness</h4>
+                  <h4>
+                    <span className="restorative">&nbsp;</span>Open-Mindedness
+                  </h4>
                   <p>
                     Associated with an individual being attracted to a topic,
                     but not alarmed. A participant exhibits less than 44 percent
@@ -560,7 +574,9 @@ class Landing extends React.Component {
                   </p>
                 </li>
                 <li>
-                  <h4><span className="fascination">&nbsp;</span>Fascination</h4>
+                  <h4>
+                    <span className="fascination">&nbsp;</span>Fascination
+                  </h4>
                   <p>
                     Associated with a relaxed interest in a topic. Aparticipant
                     exhibits less than 57 percent of the overall range of
@@ -568,7 +584,9 @@ class Landing extends React.Component {
                   </p>
                 </li>
                 <li>
-                  <h4><span className="stimulation">&nbsp;</span>Stimulation</h4>
+                  <h4>
+                    <span className="stimulation">&nbsp;</span>Stimulation
+                  </h4>
                   <p>
                     Associated with an individual being more attentive than they
                     are relaxed. Aparticipant exhibits greater than 50 percent
@@ -576,7 +594,9 @@ class Landing extends React.Component {
                   </p>
                 </li>
                 <li>
-                  <h4><span className="power">&nbsp;</span>Power / Intensity</h4>
+                  <h4>
+                    <span className="power">&nbsp;</span>Power / Intensity
+                  </h4>
                   <p>
                     Associated with the lasting impact of the experience. A
                     participant exhibits greater than 44 percent of the overall
@@ -587,9 +607,13 @@ class Landing extends React.Component {
             </div>
           </div>
           <div className="disclaimer_notes">
-            <p>Click on the research tab for link to the full report: <br /><strong>AP Insights: Age of Dynamic Storytelling</strong></p>
             <p>
-              <sup>*</sup> Hover over the node to see the name of the person participated in the research.
+              Click on the research tab for link to the full report: <br />
+              <strong>AP Insights: Age of Dynamic Storytelling</strong>
+            </p>
+            <p>
+              <sup>*</sup> Hover over the node to see the name of the person
+              participated in the research.
             </p>
           </div>
         </section>
