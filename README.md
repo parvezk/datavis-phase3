@@ -3,7 +3,9 @@ A data visualization of AP Study and Multimer data project.
 
 ## Get Started
 
-### Installation
+### Installation Steps
+
+Required steps below:
 
 Clone the project repository
 ```sh
