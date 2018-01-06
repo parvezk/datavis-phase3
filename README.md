@@ -3,7 +3,7 @@ A data visualization of AP Study and Multimer data project.
 
 ## Get Started
 
-### Installation Steps
+### Installation
 
 Required steps below:
 
