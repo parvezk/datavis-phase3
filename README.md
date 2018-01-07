@@ -5,6 +5,8 @@ A data visualization of AP Study and Multimer data project.
 
 ### Installation
 
+Required steps below:
+
 Clone the project repository
 ```sh
 git clone https://github.com/parvezk/datavis-phase3.git
