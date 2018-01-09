@@ -2,7 +2,7 @@ import React from "react";
 
 import "./styles.scss";
 
-const Link = () => {
+const StaticPage = () => {
   return (
     <div className="research_paper">
       <blockquote>
@@ -18,7 +18,7 @@ const Link = () => {
           content.” Link to the report:{" "}
           <a
             href="https://insights.ap.org/industry-trends/report-how-virtual-reality-will-impact-journalism"
-            title="Dynamic Storytelling"
+            title="AP Insights: Age of Dynamic Storytelling"
           >
             AP Insights: Age of Dynamic Storytelling
           </a>
@@ -36,4 +36,4 @@ const Link = () => {
   );
 };
 
-export default Link;
+export default StaticPage;

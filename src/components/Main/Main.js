@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route } from 'react-router-dom';
 
 import Landing from './../Landing/Landing';
-import List from './../Link/Link';
+import StaticPage from './../StaticPage/StaticPage';
 
 import './styles.scss';
 
@@ -21,7 +21,7 @@ class Main extends React.Component {
         
         <Switch>
           <Route exact path="/" component={Landing} />
-          <Route path="/list" component={List} />
+          <Route path="/list" component={StaticPage} />
         </Switch>
       </main>
 
