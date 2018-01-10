@@ -18,15 +18,12 @@ class Main extends React.Component {
   render() {
     return (
       <main className="main" >
-        
         <Switch>
           <Route exact path="/" component={Landing} />
           <Route path="/list" component={StaticPage} />
         </Switch>
       </main>
-
-  );
-
+    );
   }
 }
 
