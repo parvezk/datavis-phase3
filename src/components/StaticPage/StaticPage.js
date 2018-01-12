@@ -36,4 +36,8 @@ const StaticPage = () => {
   );
 };
 
+StaticPage.defaultProps = {
+
+}
+
 export default StaticPage;
