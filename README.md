@@ -1,5 +1,6 @@
 **Data Visualization Phase 3 Project**  
 A data visualization project based on the research study by [Associated Press](https://www.ap.org/en-us/) and [Multimer data](http://multimerdata.com/).
+
 [Full Report](https://insights.ap.org/industry-trends/report-how-virtual-reality-will-impact-journalism)
 
 ## Get Started
