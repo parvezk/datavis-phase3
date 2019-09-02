@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDom from "react-dom";
 import classnames from "classnames";
-import * as d3 from "d3";
+//import * as d3 from "d3";
 import { event as currentEvent } from "d3";
 import d3Tip from "d3-tip";
 
@@ -137,19 +137,20 @@ class Landing extends React.Component {
               return d.sentiment == "restorative"
                 ? "#ff7f0e"
                 : d.sentiment == "fascination"
-                  ? "#2ca02c"
-                  : d.sentiment == "stimulation" ? "#1f77b4" : "#d62728";
+                ? "#2ca02c"
+                : d.sentiment == "stimulation"
+                ? "#1f77b4"
+                : "#d62728";
             })
             .attr("data-value", d => {
               return d.sentiment;
             })
             .call(force.drag)
             .on("mousedown", function() {
-              currentEvent.stopPropagation();
+              event.stopPropagation();
             });
 
-          d3
-            .select("svg")
+          d3.select("svg")
             .style("opacity", 1e-6)
             .transition()
             .duration(1000)
@@ -434,29 +435,30 @@ class Landing extends React.Component {
         return d.sentiment == "restorative"
           ? "#ff7f0e"
           : d.sentiment == "fascination"
-            ? "#2ca02c"
-            : d.sentiment == "stimulation" ? "#1f77b4" : "#d62728";
+          ? "#2ca02c"
+          : d.sentiment == "stimulation"
+          ? "#1f77b4"
+          : "#d62728";
       })
       .attr("data-value", d => {
         return d.sentiment;
       })
       .call(force.drag)
       .on("mousedown", function() {
-        currentEvent.stopPropagation();
+        event.stopPropagation();
       })
       .on("mouseover", function(d) {
         tip.show(d, this);
-        currentEvent.stopPropagation();
-        currentEvent.preventDefault();
+        event.stopPropagation();
+        event.preventDefault();
       }) //Added
       .on("mouseout", function(d) {
         tip.hide(d, this);
-        currentEvent.stopPropagation();
-        currentEvent.preventDefault();
+        event.stopPropagation();
+        event.preventDefault();
       }); //Removed
 
-    d3
-      .select("svg")
+    d3.select("svg")
       .style("opacity", 1e-6)
       .transition()
       .duration(1000)
