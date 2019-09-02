@@ -109,19 +109,18 @@ class RightCol extends React.Component {
             <label>
               <h5>Choose Device: </h5>
 
-              {formControls &&
-                formControls.length > 0 && (
-                  <div className="custom-dropdown custom-dropdown--white">
-                    <select
-                      value={device}
-                      onChange={this.handleDeviceChange}
-                      className="custom-dropdown__select custom-dropdown__select--white"
-                    >
-                      <option value={formControls[0]}>{formControls[0]}</option>
-                      <option value={formControls[1]}>{formControls[1]}</option>
-                    </select>
-                  </div>
-                )}
+              {formControls && formControls.length > 0 && (
+                <div className="custom-dropdown custom-dropdown--white">
+                  <select
+                    value={device}
+                    onChange={this.handleDeviceChange}
+                    className="custom-dropdown__select custom-dropdown__select--white"
+                  >
+                    <option value={formControls[0]}>{formControls[0]}</option>
+                    <option value={formControls[1]}>{formControls[1]}</option>
+                  </select>
+                </div>
+              )}
             </label>
           </div>
         </form>
@@ -149,9 +148,9 @@ class RightCol extends React.Component {
           </p>
           <p>
             <strong>Computation: </strong> The sum of values were in the range
-            of 0-1000. Before mapping the input values with the nodes. The total
-            value were scaled down to a small value in same ratio, by taking
-            cube root of the total values (using Math.cbrt())
+            of 0-1000. Before mapping the input values with the nodes, the total
+            values were scaled down in proportion to a smaller value by taking
+            cube root of the values.
           </p>
         </div>
 
